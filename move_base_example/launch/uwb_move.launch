@@ -1,0 +1,19 @@
+<launch>
+
+   <!-- <master auto="start"/> -->
+ <!-- Run the map server -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find move_base_example)/config/blank_map.pgm 0.01"/>
+
+ <!--- Run AMCL -->
+    <include file="$(find amcl)/examples/amcl_omni.launch" />
+
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find move_base_example)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find move_base_example)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find move_base_example)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find move_base_example)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find move_base_example)/config/base_local_planner_params.yaml" command="load" />
+    <remap from="/cmd_vel" to="/husky_velocity_controller/cmd_vel"/>
+  </node>
+
+</launch>

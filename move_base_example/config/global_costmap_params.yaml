@@ -1,0 +1,5 @@
+global_costmap:
+  global_frame: env_pozyx
+  robot_base_frame: base_pozyx
+  update_frequency: 10.0
+  static_map: true
